@@ -23,7 +23,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import lostankit7.android.jetpackcompose.ui.compose.ImageCard
 import lostankit7.android.jetpackcompose.ui.compose.RowColModifiers
+import lostankit7.android.jetpackcompose.ui.compose.TextStyling
 import lostankit7.android.jetpackcompose.ui.theme.JetpackComposeTheme
+import lostankit7.android.jetpackcompose.ui.utils.showToast
 
 @ExperimentalMaterialApi
 class MainActivity : ComponentActivity() {
@@ -37,19 +39,17 @@ class MainActivity : ComponentActivity() {
                     .border(width = 2.dp, Color.Blue)
                     .padding(7.dp)
             ) {
-                ImageCard(
-                    painter = painterResource(id = R.drawable.me),
-                    title = "Hey , learning compose"
-                )
+                TextStyling()
             }
         }
     }
 }
 
+@ExperimentalMaterialApi
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     JetpackComposeTheme {
-
+        ImageCard(painter = painterResource(id = R.drawable.me), title = "Test")
     }
 }

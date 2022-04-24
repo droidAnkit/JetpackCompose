@@ -23,20 +23,19 @@ import lostankit7.android.jetpackcompose.ui.utils.showToast
 @ExperimentalMaterialApi
 @SuppressLint("ModifierParameter")
 @Composable
-fun Activity.ImageCard(
+fun ImageCard(
     modifier: Modifier = Modifier
         .fillMaxWidth(0.4f)
         .height(160.dp),
     painter: Painter,
     title: String,
+    onClick: () -> Unit = {},
 ) {
     Card(
         modifier = modifier,
         shape = RoundedCornerShape(10.dp),
         elevation = 5.dp,
-        onClick = {
-            showToast("You tapped on compose card")
-        }
+        onClick = onClick
     ) {
         Box(
             contentAlignment = Alignment.BottomCenter
