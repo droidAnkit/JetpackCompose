@@ -33,18 +33,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val color = remember { mutableStateOf(Color.Yellow) }
-            Column(Modifier.fillMaxSize()) {
-                ColorGeneratorBox(
-                    modifier = Modifier.weight(1f)
-                ) {
-                    color.value = it
-                }
-                ColorBox(modifier = Modifier
-                    .weight(1f),
-                    color = color
-                )
-            }
+            ShowWidget()
         }
     }
 }
