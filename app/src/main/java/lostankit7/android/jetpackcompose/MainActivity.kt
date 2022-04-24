@@ -3,9 +3,11 @@ package lostankit7.android.jetpackcompose
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -14,57 +16,40 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import lostankit7.android.jetpackcompose.ui.compose.ImageCard
+import lostankit7.android.jetpackcompose.ui.compose.RowColModifiers
 import lostankit7.android.jetpackcompose.ui.theme.JetpackComposeTheme
 
+@ExperimentalMaterialApi
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Row(
+            Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .fillMaxHeight(fraction = 0.4f)
-                    //.offset(10.dp, 20.dp)
-                    .border(5.dp, color = Color.Black)
-                    .padding(5.dp)
-                    .border(3.dp, Color.Yellow)
-                    .padding(3.dp)
-                    .background(Color.Blue),
-                horizontalArrangement = Arrangement.SpaceEvenly,
-//                verticalAlignment = Alignment.CenterVertically
+                    .fillMaxHeight()
+                    .border(width = 2.dp, Color.Blue)
+                    .padding(7.dp)
             ) {
-                Text(text = "It's", color = Color.Red,
-                    modifier = Modifier
-                        .padding(3.dp)
-                        .background(Color.Yellow)
-                        .fillMaxWidth(.25f)
-                        .fillMaxHeight(.25f)
-                        .padding(1.dp)
-                        .align(Alignment.CenterVertically)
-                        .border(2.dp, Color.DarkGray),
-                    textAlign = TextAlign.Center,
-                    textDecoration = TextDecoration.Underline,
+                ImageCard(
+                    painter = painterResource(id = R.drawable.me),
+                    title = "Hey , learning compose"
                 )
-                Text(text = "actually", color = Color.Red)
-                Text(text = "nice", color = Color.White)
             }
         }
     }
-}
-
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
 }
 
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     JetpackComposeTheme {
-        Greeting("Android")
+
     }
 }
