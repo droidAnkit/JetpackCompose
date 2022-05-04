@@ -14,10 +14,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowDropDown
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Notifications
-import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.BottomCenter
@@ -55,108 +52,35 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            JetpackComposeTheme {
-                val moonScrollSpeed = 0.08f
-                val midBgScrollSpeed = 0.03f
-
-                val imageHeight = (LocalConfiguration.current.screenWidthDp * (2f / 3f)).dp
-                val lazyListState = rememberLazyListState()
-
-                var moonOffSet by remember {
-                    mutableStateOf(0f)
-                }
-                var midBgOffSet by remember {
-                    mutableStateOf(0f)
-                }
-
-                val nestedScrollConnection = remember {
-                    object : NestedScrollConnection {
-                        override fun onPreScroll(
-                            available: Offset,
-                            source: NestedScrollSource,
-                        ): Offset {
-                            val delta = available.y
-
-                            if (lazyListState.firstVisibleItemIndex == 0 ||
-                                lazyListState.layoutInfo.visibleItemsInfo.lastOrNull()?.index == lazyListState.layoutInfo.totalItemsCount - 1
-                            ) {
-                                return Offset.Zero
-                            }
-
-                            moonOffSet += delta * moonScrollSpeed
-                            midBgOffSet += delta * midBgOffSet
-                            return Offset.Zero
-                        }
-                    }
-                }
-
-                LazyColumn(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .nestedScroll(nestedScrollConnection),
-                    state = lazyListState
-                ) {
-                    items(10) {
-                        Text(text = "Sample Item",
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(16.dp))
-                    }
-
-                    item {
-                        Box(modifier = Modifier
-                            .clipToBounds()
+            LazyColumn(modifier = Modifier.fillMaxSize()) {
+                items(items.size) { i ->
+                    Row(
+                        modifier = Modifier
                             .fillMaxWidth()
-                            .height(imageHeight + midBgOffSet.toDp())
-                            .background(
-                                Brush.verticalGradient(
-                                    listOf(Color(0xFFf36b21), Color(0xFFf9a521))
-                                )
-                            )
-                        ) {
-                            Image(
-                                painter = painterResource(id = R.drawable.ic_moonbg),
-                                contentDescription = "moon",
-                                contentScale = ContentScale.FillWidth,
-                                alignment = BottomCenter,
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .graphicsLayer {
-                                        translationY = moonOffSet
-                                    }
-                            )
-                            Image(
-                                painter = painterResource(id = R.drawable.ic_midbg),
-                                contentDescription = "mid bg",
-                                contentScale = ContentScale.FillWidth,
-                                alignment = BottomCenter,
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .graphicsLayer {
-                                        translationY = midBgOffSet
-                                    }
-                            )
-                            Image(
-                                painter = painterResource(id = R.drawable.ic_outerbg),
-                                contentDescription = "outer bg",
-                                contentScale = ContentScale.FillWidth,
-                                alignment = BottomCenter,
-                                modifier = Modifier.fillMaxSize()
+                            .clickable {
+                                items[i].isSelected.value = !items[i].isSelected.value
+                            }
+                            .padding(16.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(text = items[i].title)
+                        if (items[i].isSelected.value) {
+                            Icon(
+                                imageVector = Icons.Default.Check,
+                                contentDescription = null,
+                                tint = Color.Green,
+                                modifier = Modifier.size(20.dp)
                             )
                         }
-                    }
-
-                    items(20) {
-                        Text(text = "Sample Item",
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(16.dp))
                     }
                 }
             }
         }
     }
 
-    private fun Float.toDp() =
-        (this / Resources.getSystem().displayMetrics.density).dp
+    private val items = (1..20).map {
+        ListItem("Item $it")
+    }
+
 }
