@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/ic_chat_bubble.xml" value="0.21296296296296297" />
         <entry key="app/src/main/res/drawable/ic_midbg.xml" value="0.20277777777777778" />
         <entry key="app/src/main/res/drawable/ic_moonbg.xml" value="0.20277777777777778" />
         <entry key="app/src/main/res/drawable/ic_outerbg.xml" value="0.20277777777777778" />
